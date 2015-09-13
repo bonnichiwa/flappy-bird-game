@@ -6,6 +6,8 @@ var browserify = require('browserify');
 var uglify = require('gulp-uglify');
 var minifyHTML = require('gulp-minify-html');
 var rename = require('gulp-rename');
+var source = require('vinyl-source-stream');
+var buffer = require('vinyl-buffer');
 
 // JavaScript linting task
 gulp.task('jshint', function() {
