@@ -42,7 +42,7 @@ gulp.task('images', function() {
 
 // Watch task
 gulp.task('watch', function() {
-  gulp.watch('site/js/*.js', ['jshint']);
+  gulp.watch('site/js/*.js', ['jshint', 'scripts']);
   gulp.watch('site/index.html', ['html']);
 });
 

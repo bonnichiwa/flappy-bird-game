@@ -3,9 +3,10 @@ var BirdGraphicsComponent = function(entity) {
 };
 
 BirdGraphicsComponent.prototype.draw = function(context) {
-  context.beginPath();
-  context.arc(50, 50, 10, 0, 2 * Math.PI);
-  context.fill();
+    context.beginPath();
+    context.arc(50, 50, 10, 0, 2 * Math.PI);
+    context.fill();
+    console.log("Drawing a bird");
 };
 
 exports.BirdGraphicsComponent = BirdGraphicsComponent;
