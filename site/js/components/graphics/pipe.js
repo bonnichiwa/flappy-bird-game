@@ -11,6 +11,8 @@ PipeGraphicsComponent.prototype.draw = function(context) {
   context.translate(position.x, position.y);
   context.scale(1,-1);
   context.drawImage(this.img, 0.5, 0, 0.2, 0.2);
+  context.scale(1,-1);
+  context.drawImage(this.img, 0.5, 0.6, 0.2, 0.2);
   context.restore();
   console.log("Finished drawing pipe");
 };
