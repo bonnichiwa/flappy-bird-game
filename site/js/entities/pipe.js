@@ -5,8 +5,7 @@ var Pipe = function() {
   console.log("Creating Pipe entity");
 
   var physics = new physicsComponent.PhysicsComponent(this);
-  physics.position.x = 0;
-  physics.position.y = 5;
+  physics.position.y = 0.2;
 
   var graphics = new graphicsComponent.PipeGraphicsComponent(this);
   this.components = {

@@ -9,8 +9,8 @@ BirdGraphicsComponent.prototype.draw = function(context) {
   console.log("Drawing flappy bird");
   context.save();
   context.translate(position.x, position.y);
-  
-  context.drawImage(this.img, 0, 0, 0.13, 0.1);
+  context.scale(1,-1);
+  context.drawImage(this.img, 0, 0, 0.05, 0.04);
   context.restore();
 };
 

@@ -10,8 +10,8 @@ BirdGraphicsComponent.prototype.draw = function(context) {
   console.log("Drawing flappy bird");
   context.save();
   context.translate(position.x, position.y);
-  
-  context.drawImage(this.img, 0, 0, 0.13, 0.1);
+  context.scale(1,-1);
+  context.drawImage(this.img, 0, 0, 0.05, 0.04);
   context.restore();
 };
 
@@ -28,8 +28,8 @@ PipeGraphicsComponent.prototype.draw = function(context) {
   var position = this.entity.components.physics.position;
   context.save();
   context.translate(position.x, position.y);
-  
-  context.drawImage(this.img, 0.5, 0.5, 0.2, 0.2);
+  context.scale(1,-1);
+  context.drawImage(this.img, 0.5, 0, 0.2, 0.2);
   context.restore();
   console.log("Finished drawing pipe");
 };
@@ -88,8 +88,7 @@ var Pipe = function() {
   console.log("Creating Pipe entity");
 
   var physics = new physicsComponent.PhysicsComponent(this);
-  physics.position.x = 0;
-  physics.position.y = 5;
+  physics.position.y = 0.2;
 
   var graphics = new graphicsComponent.PipeGraphicsComponent(this);
   this.components = {
@@ -108,8 +107,7 @@ var bird = require('./entities/bird');
 var pipe = require('./entities/pipe');
 
 var FlappyBird = function() {
-    this.entities = [new bird.Bird()];
-    // this.entities = [new pipe.Pipe()];
+    this.entities = [new bird.Bird(), new pipe.Pipe()];
     this.graphics = new graphicsSystem.GraphicsSystem(this.entities);
     this.physics = new physicsSystem.PhysicsSystem(this.entities);
     this.input = new inputSystem.InputSystem(this.entities);
