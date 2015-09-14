@@ -10,6 +10,9 @@ PipesSystem.prototype.run = function() {
 };
 
 PipesSystem.prototype.tick = function() {
+
+  this.entities.push(new pipe.Pipe(position));
+
   var right = 0.5 * this.canvas.width / this.canvas.height;
   var gapPosition = 0.4 + Math.random() * 0.2;
   var height = gapPosition - 0.35 / 2;
@@ -17,11 +20,6 @@ PipesSystem.prototype.tick = function() {
   var position = {
     x: right + 0.15 / 2,
     y: height / 2
-  };
-
-  this.entities.push(new pipe.Pipe(position));
-
-  var position = {
   };
 
   this.entities.push(new pipe.Pipe(position));
