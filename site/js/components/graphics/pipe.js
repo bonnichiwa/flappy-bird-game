@@ -10,9 +10,9 @@ PipeGraphicsComponent.prototype.draw = function(context) {
   context.save();
   context.translate(position.x, position.y);
   context.scale(1,-1);
-  context.drawImage(this.img, 0.5, 0, 0.2, 0.2);
+  context.drawImage(this.img, 0.8, 0, 0.15, 0.4);
   context.scale(1,-1);
-  context.drawImage(this.img, 0.5, 0.6, 0.2, 0.2);
+  context.drawImage(this.img, 0.8, 0.3, 0.15, 0.4);
   context.restore();
   console.log("Finished drawing pipe");
 };
