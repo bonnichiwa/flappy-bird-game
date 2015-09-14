@@ -1,16 +1,17 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var BirdGraphicsComponent = function(entity) {
   this.entity = entity;
+  this.img = new Image();
+  this.img.src = "img/flappy-bird.png";
 };
 
 BirdGraphicsComponent.prototype.draw = function(context) {
   var position = this.entity.components.physics.position;
-
+  console.log("Drawing flappy bird");
   context.save();
   context.translate(position.x, position.y);
-  var img = new Image();
-  img.src = "./img/flappy-bird.png";
-  context.drawImage(img, 0, 0, 90, 90, 0, 0, 0.04, 0.04);
+  
+  context.drawImage(this.img, 0, 0, 0.13, 0.1);
   context.restore();
 };
 
@@ -18,6 +19,8 @@ exports.BirdGraphicsComponent = BirdGraphicsComponent;
 },{}],2:[function(require,module,exports){
 var PipeGraphicsComponent = function(entity) {
   this.entity = entity;
+  this.img = new Image();
+  this.img.src = "img/pipe.png";
 };
 
 PipeGraphicsComponent.prototype.draw = function(context) {
@@ -25,9 +28,8 @@ PipeGraphicsComponent.prototype.draw = function(context) {
   var position = this.entity.components.physics.position;
   context.save();
   context.translate(position.x, position.y);
-  var img = new Image();
-  img.src = "./img/pipe.png";
-  context.drawImage(img, 0, 0, 90, 90, 0, 0, 0.04, 0.04);
+  
+  context.drawImage(this.img, 0.5, 0.5, 0.2, 0.2);
   context.restore();
   console.log("Finished drawing pipe");
 };
@@ -107,7 +109,7 @@ var pipe = require('./entities/pipe');
 
 var FlappyBird = function() {
     this.entities = [new bird.Bird()];
-    this.entities = [new pipe.Pipe()];
+    // this.entities = [new pipe.Pipe()];
     this.graphics = new graphicsSystem.GraphicsSystem(this.entities);
     this.physics = new physicsSystem.PhysicsSystem(this.entities);
     this.input = new inputSystem.InputSystem(this.entities);

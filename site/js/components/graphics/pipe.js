@@ -1,5 +1,7 @@
 var PipeGraphicsComponent = function(entity) {
   this.entity = entity;
+  this.img = new Image();
+  this.img.src = "img/pipe.png";
 };
 
 PipeGraphicsComponent.prototype.draw = function(context) {
@@ -7,9 +9,8 @@ PipeGraphicsComponent.prototype.draw = function(context) {
   var position = this.entity.components.physics.position;
   context.save();
   context.translate(position.x, position.y);
-  var img = new Image();
-  img.src = "./img/pipe.png";
-  context.drawImage(img, 0, 0, 90, 90, 0, 0, 0.04, 0.04);
+  
+  context.drawImage(this.img, 0.5, 0.5, 0.2, 0.2);
   context.restore();
   console.log("Finished drawing pipe");
 };
