@@ -5,6 +5,7 @@ var imagemin = require('gulp-imagemin');
 var browserify = require('browserify');
 var uglify = require('gulp-uglify');
 var minifyHTML = require('gulp-minify-html');
+var concat = require('gulp-concat');
 var rename = require('gulp-rename');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
@@ -33,6 +34,13 @@ gulp.task('scripts', function() {
     .pipe(gulp.dest('build/js'));
 });
 
+// Styles build task, concatenates all the files
+gulp.task('styles', function() {
+  gulp.src('site/css/*.css')
+    .pipe(concat('styles.css'))
+    .pipe(gulp.dest('build/css'));
+});
+
 // Image optimization task
 gulp.task('images', function() {
   gulp.src('site/img/*')
@@ -47,7 +55,7 @@ gulp.task('watch', function() {
 });
 
 // Default task
-gulp.task('default', ['jshint', 'watch', 'html', 'scripts', 'images']);
+gulp.task('default', ['jshint', 'watch', 'html', 'scripts', 'styles', 'images']);
 
 // Build task
-gulp.task('build', ['jshint', 'html', 'scripts', 'images']);
+gulp.task('build', ['jshint', 'html', 'scripts', 'styles', 'images']);
