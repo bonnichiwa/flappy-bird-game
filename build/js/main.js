@@ -11,7 +11,7 @@ BirdGraphicsComponent.prototype.draw = function(context) {
   context.save();
   context.translate(position.x, position.y);
   context.scale(1,-1);
-  context.drawImage(this.img, 0, 0, 0.05, 0.04);
+  context.drawImage(this.img, 0, 0, 0.06, 0.05);
   context.restore();
 };
 
@@ -71,7 +71,7 @@ var physicsComponent = require("../components/physics/physics");
 var Bird = function() {
     var physics = new physicsComponent.PhysicsComponent(this);
     physics.position.y = 0.6;
-    physics.acceleration.y = -1;
+    physics.acceleration.y = -0.8;
 
     var graphics = new graphicsComponent.BirdGraphicsComponent(this);
 
@@ -190,7 +190,7 @@ InputSystem.prototype.run = function() {
 
 InputSystem.prototype.onClick = function() {
   var bird = this.entities[0];
-  bird.components.physics.velocity.y = 0.8;
+  bird.components.physics.velocity.y = 0.6;
 };
 
 exports.InputSystem = InputSystem;
@@ -229,6 +229,14 @@ PipesSystem.prototype.run = function() {
 };
 
 PipesSystem.prototype.tick = function() {
+  var right = 0.5 * this.canvas.width / this.canvas.height;
+  var gapPosition = 0.4 + Math.random() * 0.2;
+  var height = gapPosition - 0.35 / 2;
+
+  var position = {
+    x: right + 0.15 / 2,
+    y: height / 2
+  };
 
   this.entities.push(new pipe.Pipe(position));
 

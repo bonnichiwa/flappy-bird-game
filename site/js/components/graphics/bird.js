@@ -10,7 +10,7 @@ BirdGraphicsComponent.prototype.draw = function(context) {
   context.save();
   context.translate(position.x, position.y);
   context.scale(1,-1);
-  context.drawImage(this.img, 0, 0, 0.05, 0.04);
+  context.drawImage(this.img, 0, 0, 0.06, 0.05);
   context.restore();
 };
 
