@@ -4,9 +4,13 @@ var PipeGraphicsComponent = function(entity) {
 
 PipeGraphicsComponent.prototype.draw = function(context) {
   console.log("Drawing a pipe");
-  context.beginPath();
-  context.fillStyle = "green";
-  context.fillRect(20, 0, 100, 100);
+  var position = this.entity.components.physics.position;
+  context.save();
+  context.translate(position.x, position.y);
+  var img = new Image();
+  img.src = "./img/pipe.png";
+  context.drawImage(img, 0, 0, 90, 90, 0, 0, 0.04, 0.04);
+  context.restore();
   console.log("Finished drawing pipe");
 };
 

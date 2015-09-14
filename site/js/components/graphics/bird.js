@@ -7,10 +7,9 @@ BirdGraphicsComponent.prototype.draw = function(context) {
 
   context.save();
   context.translate(position.x, position.y);
-  context.beginPath();
-  context.arc(0, 0, 0.02, 0, 2 * Math.PI);
-  context.fill();
-  context.closePath();
+  var img = new Image();
+  img.src = "./img/flappy-bird.png";
+  context.drawImage(img, 0, 0, 90, 90, 0, 0, 0.04, 0.04);
   context.restore();
 };
 

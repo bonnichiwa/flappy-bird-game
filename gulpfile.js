@@ -3,7 +3,7 @@ var gulp = require('gulp');
 var jshint = require('gulp-jshint');
 var imagemin = require('gulp-imagemin');
 var browserify = require('browserify');
-var uglify = require('gulp-uglify');
+// var uglify = require('gulp-uglify');
 var minifyHTML = require('gulp-minify-html');
 var concat = require('gulp-concat');
 var rename = require('gulp-rename');
@@ -30,7 +30,7 @@ gulp.task('scripts', function() {
     .bundle()
     .pipe(source('main.js'))
     .pipe(buffer())
-    .pipe(uglify())
+    // .pipe(uglify())
     .pipe(gulp.dest('build/js'));
 });
 
