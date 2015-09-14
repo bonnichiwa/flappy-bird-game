@@ -3,7 +3,7 @@ var physicsComponent = require("../components/physics/physics");
 
 var Bird = function() {
     var physics = new physicsComponent.PhysicsComponent(this);
-    physics.position.y = 0.8;
+    physics.position.y = 0.6;
     physics.acceleration.y = -1;
 
     var graphics = new graphicsComponent.BirdGraphicsComponent(this);
