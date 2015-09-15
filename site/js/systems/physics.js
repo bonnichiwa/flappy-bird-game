@@ -1,4 +1,4 @@
-var collisionSystem = require("./collision");
+var collisionSystem = require('./collision');
 
 var PhysicsSystem = function(entities) {
   this.entities = entities;

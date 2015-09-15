@@ -6,7 +6,6 @@ var BirdGraphicsComponent = function(entity) {
 
 BirdGraphicsComponent.prototype.draw = function(context) {
   var position = this.entity.components.physics.position;
-  console.log("Drawing flappy bird");
   context.save();
   context.translate(position.x, position.y);
   context.scale(1,-1);

@@ -2,8 +2,7 @@ var graphicsComponent = require("../components/graphics/pipe");
 var physicsComponent = require("../components/physics/physics");
 
 var Pipe = function() {
-  console.log("Creating Pipe entity");
-
+  
   var physics = new physicsComponent.PhysicsComponent(this);
   physics.position.y = 0.35;
   physics.velocity.x = -0.3;
