@@ -39,4 +39,5 @@ RectCollisionComponent.prototype.collideRect = function(entity) {
              bottomA > topB || bottomB > topA);
 };
 
+
 exports.RectCollisionComponent = RectCollisionComponent;
