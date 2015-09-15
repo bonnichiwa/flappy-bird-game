@@ -64,6 +64,50 @@ CircleCollisionComponent.prototype.collideRect = function(entity) {
 };
 exports.CircleCollisionComponent = CircleCollisionComponent;
 },{}],2:[function(require,module,exports){
+var RectCollisionComponent = function(entity, size) {
+    this.entity = entity;
+    this.size = size;
+    this.type = 'rect';
+};
+
+RectCollisionComponent.prototype.collidesWith = function(entity) {
+    if (entity.components.collision.type == 'circle') {
+        return this.collideCircle(entity);
+    }
+    else if (entity.components.collision.type == 'rect') {
+        return this.collideRect(entity);
+    }
+    return false;
+};
+
+RectCollisionComponent.prototype.collideCircle = function(entity) {
+    return entity.components.collision.collideRect(this.entity);
+};
+
+RectCollisionComponent.prototype.collideRect = function(entity) {
+    var positionA = this.entity.components.physics.position;
+    var positionB = entity.components.physics.position;
+
+    var sizeA = this.size;
+    var sizeB = entity.components.collision.size;
+
+    var leftA = positionA.x - sizeA.x / 2;
+    var rightA = positionA.x + sizeA.x / 2;
+    var bottomA = positionA.y - sizeA.y / 2;
+    var topA = positionA.y + sizeA.y / 2;
+
+    var leftB = positionB.x - sizeB.x / 2;
+    var rightB = positionB.x + sizeB.x / 2;
+    var bottomB = positionB.y - sizeB.y / 2;
+    var topB = positionB.y + sizeB.y / 2;
+
+    return !(leftA > rightB || leftB > rightA ||
+             bottomA > topB || bottomB > topA);
+};
+
+
+exports.RectCollisionComponent = RectCollisionComponent;
+},{}],3:[function(require,module,exports){
 var BirdGraphicsComponent = function(entity) {
   this.entity = entity;
   this.img = new Image();
@@ -80,12 +124,16 @@ BirdGraphicsComponent.prototype.draw = function(context) {
 };
 
 exports.BirdGraphicsComponent = BirdGraphicsComponent;
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 var PipeGraphicsComponent = function(entity) {
   this.entity = entity;
   this.img = new Image();
   this.img.src = "img/pipe.png";
 };
+
+// PipesGraphicsSystem.prototype.run = function() {
+//   window.setInterval(this.tick.draw(this), 2000);
+// };
 
 PipeGraphicsComponent.prototype.draw = function(context) {
   var position = this.entity.components.physics.position;
@@ -99,7 +147,7 @@ PipeGraphicsComponent.prototype.draw = function(context) {
 };
 
 exports.PipeGraphicsComponent = PipeGraphicsComponent;
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 var PhysicsComponent = function(entity) {
   this.entity = entity;
 
@@ -126,7 +174,7 @@ PhysicsComponent.prototype.update = function(delta) {
 };
 
 exports.PhysicsComponent = PhysicsComponent;
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 var physicsComponent = require("../components/physics/physics");
 var graphicsComponent = require("../components/graphics/bird");
 var collisionComponent = require("../components/collision/circle");
@@ -157,9 +205,10 @@ Bird.prototype.onCollision = function(entity) {
 
 
 exports.Bird = Bird;
-},{"../components/collision/circle":1,"../components/graphics/bird":2,"../components/physics/physics":4}],6:[function(require,module,exports){
+},{"../components/collision/circle":1,"../components/graphics/bird":3,"../components/physics/physics":5}],7:[function(require,module,exports){
 var graphicsComponent = require("../components/graphics/pipe");
 var physicsComponent = require("../components/physics/physics");
+var collisionComponent = require("../components/collision/rect");
 
 var Pipe = function() {
   
@@ -168,14 +217,22 @@ var Pipe = function() {
   physics.velocity.x = -0.3;
 
   var graphics = new graphicsComponent.PipeGraphicsComponent(this);
+  var collision = new collisionComponent.RectCollisionComponent(this);
+  collision.onCollision = this.onCollision.bind(this);
+
   this.components = {
       graphics: graphics,
-      physics: physics
+      physics: physics,
+      collision: collision
   };
 };
 
+Pipe.prototype.onCollision = function(entity) {
+  console.log("Pipe collided with entity:", entity);
+};
+
 exports.Pipe = Pipe;
-},{"../components/graphics/pipe":3,"../components/physics/physics":4}],7:[function(require,module,exports){
+},{"../components/collision/rect":2,"../components/graphics/pipe":4,"../components/physics/physics":5}],8:[function(require,module,exports){
 var graphicsSystem = require('./systems/graphics');
 var physicsSystem = require('./systems/physics');
 var inputSystem = require('./systems/input');
@@ -200,14 +257,14 @@ FlappyBird.prototype.run = function() {
 };
 
 exports.FlappyBird = FlappyBird;
-},{"./entities/bird":5,"./entities/pipe":6,"./systems/graphics":10,"./systems/input":11,"./systems/physics":12,"./systems/pipes":13}],8:[function(require,module,exports){
+},{"./entities/bird":6,"./entities/pipe":7,"./systems/graphics":11,"./systems/input":12,"./systems/physics":13,"./systems/pipes":14}],9:[function(require,module,exports){
 var flappyBird = require('./flappy_bird');
 
 document.addEventListener('DOMContentLoaded', function() {
   var app = new flappyBird.FlappyBird();
   app.run();
 });
-},{"./flappy_bird":7}],9:[function(require,module,exports){
+},{"./flappy_bird":8}],10:[function(require,module,exports){
 var CollisionSystem = function(entities) {
     this.entities = entities;
 };
@@ -241,7 +298,7 @@ CollisionSystem.prototype.tick = function() {
 };
 
 exports.CollisionSystem = CollisionSystem;
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 var GraphicsSystem = function(entities) {
   this.entities = entities;
   // Canvas is where we draw
@@ -284,7 +341,7 @@ GraphicsSystem.prototype.tick = function() {
 };
 
 exports.GraphicsSystem = GraphicsSystem;
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 var InputSystem = function(entities) {
   this.entities = entities;
 
@@ -302,7 +359,7 @@ InputSystem.prototype.onClick = function() {
 };
 
 exports.InputSystem = InputSystem;
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 var collisionSystem = require('./collision');
 
 var PhysicsSystem = function(entities) {
@@ -312,7 +369,7 @@ var PhysicsSystem = function(entities) {
 
 PhysicsSystem.prototype.run = function() {
   // Run the update loop
-  window.setInterval(this.tick.bind(this), 1000 /60);
+  var interval = window.setInterval(this.tick.bind(this), 1000 /60);
 };
 
 PhysicsSystem.prototype.tick = function() {
@@ -329,7 +386,7 @@ PhysicsSystem.prototype.tick = function() {
 };
 
 exports.PhysicsSystem = PhysicsSystem;
-},{"./collision":9}],13:[function(require,module,exports){
+},{"./collision":10}],14:[function(require,module,exports){
 var pipe = require('../entities/pipe');
 
 var PipesSystem = function(entities) {
@@ -343,19 +400,17 @@ PipesSystem.prototype.run = function() {
 
 PipesSystem.prototype.tick = function() {
 
-  this.entities.push(new pipe.Pipe(position));
+    var position = {
+    };
 
-  var right = 0.5 * this.canvas.width / this.canvas.height;
-  var gapPosition = 0.4 + Math.random() * 0.2;
-  var height = gapPosition - 0.35 / 2;
 
-  var position = {
-    x: right + 0.15 / 2,
-    y: height / 2
-  };
+    this.entities.push(new pipe.Pipe(position));
 
-  this.entities.push(new pipe.Pipe(position));
+    var position = {
+    };
+
+    this.entities.push(new pipe.Pipe(position));
 };
         
 exports.PipesSystem = PipesSystem;
-},{"../entities/pipe":6}]},{},[8]);
+},{"../entities/pipe":7}]},{},[9]);

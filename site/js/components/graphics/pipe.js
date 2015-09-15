@@ -4,6 +4,10 @@ var PipeGraphicsComponent = function(entity) {
   this.img.src = "img/pipe.png";
 };
 
+// PipesGraphicsSystem.prototype.run = function() {
+//   window.setInterval(this.tick.draw(this), 2000);
+// };
+
 PipeGraphicsComponent.prototype.draw = function(context) {
   var position = this.entity.components.physics.position;
   context.save();

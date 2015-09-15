@@ -7,7 +7,7 @@ var PhysicsSystem = function(entities) {
 
 PhysicsSystem.prototype.run = function() {
   // Run the update loop
-  window.setInterval(this.tick.bind(this), 1000 /60);
+  var interval = window.setInterval(this.tick.bind(this), 1000 /60);
 };
 
 PhysicsSystem.prototype.tick = function() {
