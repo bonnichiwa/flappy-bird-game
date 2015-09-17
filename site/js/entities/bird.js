@@ -9,7 +9,7 @@ var Bird = function() {
   physics.acceleration.y = -0.8;
 
   var graphics = new graphicsComponent.BirdGraphicsComponent(this);
-  var collision = new collisionComponent.CircleCollisionComponent(this);
+  var collision = new collisionComponent.CircleCollisionComponent(this, 0.05);
   collision.onCollision = this.onCollision.bind(this);
 
   this.components = {
@@ -20,7 +20,7 @@ var Bird = function() {
 };
 
 Bird.prototype.onCollision = function(entity) {
-  // this.components.physics.position.x = 0.5;
+  // this.components.physics.position.x = 0;
   // this.components.physics.position.y = 0.5;
   // this.components.physics.velocity.y = 0;
   console.log("Bird collided with entity:", entity);

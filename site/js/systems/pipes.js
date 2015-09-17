@@ -14,13 +14,10 @@ PipesSystem.prototype.tick = function() {
     var position = {
     };
 
-
-    this.entities.push(new pipe.Pipe(position));
-
-    var position = {
+    var size = {
     };
 
-    this.entities.push(new pipe.Pipe(position));
+    this.entities.push(new pipe.Pipe(position, size));
 };
         
 exports.PipesSystem = PipesSystem;

@@ -1,7 +1,10 @@
-var PipeGraphicsComponent = function(entity) {
+var PipeGraphicsComponent = function(entity, size) {
   this.entity = entity;
+  this.size = size;
   this.img = new Image();
   this.img.src = "img/pipe.png";
+  this.size.x = this.img.width;
+  this.size.y = this.img.height;
 };
 
 // PipesGraphicsSystem.prototype.run = function() {
