@@ -16,9 +16,9 @@ PipeGraphicsComponent.prototype.draw = function(context) {
   context.save();
   context.translate(position.x, position.y);
   context.scale(1,-1);
-  context.drawImage(this.img, 0.8, 0, 0.15, 0.4);
+  context.drawImage(this.img, 0.8, Math.random(), 0.15, 0.4);
   context.scale(1,-1);
-  context.drawImage(this.img, 0.8, 0.3, 0.15, 0.4);
+  context.drawImage(this.img, 0.8, Math.random(), 0.15, 0.4);
   context.restore();
 };
 
